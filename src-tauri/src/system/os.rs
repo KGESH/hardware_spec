@@ -1,14 +1,13 @@
-use sysinfo::{System};
+use sysinfo::System;
 
 pub fn get_os_info() -> String {
-    let mut sys = System::new_all();
-    sys.refresh_all();
+    let os_type = System::name().unwrap();
 
     // Display system information:
-    println!("System name:             {:?}", System::name());
+    println!("System name:             {:?}", os_type);
     println!("System kernel version:   {:?}", System::kernel_version());
     println!("System OS version:       {:?}", System::os_version());
     println!("System host name:        {:?}", System::host_name());
 
-    System::name().unwrap()
+    format!("System name: {}\nSystem kernel version: {}\nSystem OS version: {}\nSystem host name: {}", os_type, System::kernel_version().unwrap(), System::os_version().unwrap(), System::host_name().unwrap())
 }

@@ -8,7 +8,7 @@ import { IRam } from '@/components/types/hardwares/ram.types';
 import { IDisk } from '@/components/types/hardwares/disk.types';
 import { IComputer } from '@/components/types/hardwares/computer.types';
 import Link from 'next/link';
-import { useOsInfo } from '@/components/hooks/useOsInfo';
+import { useSystemInfo } from '@/components/hooks/useSystemInfo';
 
 function getHardwareSpecs(): IComputer {
   // Todo: get hardware specs from windows api
@@ -63,7 +63,9 @@ function getHardwareSpecs(): IComputer {
 
 export default function Home() {
   const hardwareSpecs = getHardwareSpecs();
-  const { osInfo, fetchOsInfo } = useOsInfo();
+  const { systemInfo, fetchSystemInfo } = useSystemInfo();
+
+  console.log(systemInfo);
 
   return (
     <main>
@@ -77,15 +79,14 @@ export default function Home() {
       >
         <Button
           type="button"
-          onClick={fetchOsInfo}
+          onClick={fetchSystemInfo}
           className="px-4 py-2"
           variant="default"
         >
           Send
         </Button>
-        <Button type="button" className="px-4 py-2" variant="secondary">
-          Your OS {osInfo}
-        </Button>
+        <h3>Your system info</h3>
+        <p className="text-red-500">{systemInfo}</p>
       </Link>
     </main>
   );

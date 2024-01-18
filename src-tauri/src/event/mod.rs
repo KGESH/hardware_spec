@@ -1,6 +1,6 @@
-use crate::system::os::get_os_info;
+use crate::system;
 
 #[tauri::command]
 pub fn get_system_info() -> String {
-    get_os_info()
+    system::get_system_info()
 }
