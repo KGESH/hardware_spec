@@ -18,16 +18,11 @@ import { IGpu } from '@/components/types/hardwares/gpu.types';
 import { IRam } from '@/components/types/hardwares/ram.types';
 import { IDisk } from '@/components/types/hardwares/disk.types';
 import { IMotherBoard } from '@/components/types/hardwares/motherboard.types';
+import { IComputer } from '@/components/types/hardwares/computer.types';
 
-type Props = {
-  cpu: ICpu;
-  motherboard: IMotherBoard;
-  gpu: IGpu;
-  rams: IRam[];
-  disks: IDisk[];
-};
+type Props = IComputer;
 
-export function HardwarePanel({ cpu, motherboard, gpu, rams, disks }: Props) {
+export function HardwarePanel({ cpu, motherBoard, gpu, rams, disks }: Props) {
   return (
     <div className="flex flex-col h-screen">
       <header className="flex h-14 items-center gap-4 border-b bg-gray-100/40 px-6 dark:bg-gray-800/40">
@@ -56,7 +51,7 @@ export function HardwarePanel({ cpu, motherboard, gpu, rams, disks }: Props) {
               {createRow(cpu)}
 
               {/*** Motherboard ***/}
-              {createRow(motherboard)}
+              {createRow(motherBoard)}
 
               {/*** GPU ***/}
               {createRow(gpu)}
@@ -70,11 +65,6 @@ export function HardwarePanel({ cpu, motherboard, gpu, rams, disks }: Props) {
           </Table>
         </div>
       </main>
-      <footer className="flex justify-center items-center h-14 border-t bg-gray-100/40 px-6 dark:bg-gray-800/40">
-        <Button className="px-4 py-2" variant="default">
-          Send
-        </Button>
-      </footer>
     </div>
   );
 }
