@@ -1,3 +1,4 @@
+'use client';
 import { HardwarePanel } from '@/components/HardwarePanel';
 import { Button } from '@/components/ui/button';
 import { ICpu } from '@/components/types/hardwares/cpu.types';
@@ -7,6 +8,7 @@ import { IRam } from '@/components/types/hardwares/ram.types';
 import { IDisk } from '@/components/types/hardwares/disk.types';
 import { IComputer } from '@/components/types/hardwares/computer.types';
 import Link from 'next/link';
+import { useOsInfo } from '@/components/hooks/useOsInfo';
 
 function getHardwareSpecs(): IComputer {
   // Todo: get hardware specs from windows api
@@ -61,6 +63,7 @@ function getHardwareSpecs(): IComputer {
 
 export default function Home() {
   const hardwareSpecs = getHardwareSpecs();
+  const { osInfo, fetchOsInfo } = useOsInfo();
 
   return (
     <main>
@@ -72,8 +75,16 @@ export default function Home() {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <Button type="button" className="px-4 py-2" variant="default">
+        <Button
+          type="button"
+          onClick={fetchOsInfo}
+          className="px-4 py-2"
+          variant="default"
+        >
           Send
+        </Button>
+        <Button type="button" className="px-4 py-2" variant="secondary">
+          Your OS {osInfo}
         </Button>
       </Link>
     </main>
