@@ -9,6 +9,7 @@ import { IDisk } from '@/components/types/hardwares/disk.types';
 import { IComputer } from '@/components/types/hardwares/computer.types';
 import Link from 'next/link';
 import { useSystemInfo } from '@/components/hooks/useSystemInfo';
+import RedirectButton from '@/components/RedirectButton';
 
 function getHardwareSpecs(): IComputer {
   // Todo: get hardware specs from windows api
@@ -71,23 +72,24 @@ export default function Home() {
     <main>
       <HardwarePanel {...hardwareSpecs} />
 
-      {/*Todo: Replace url*/}
-      <Link
-        href="https://www.naver.com"
-        target="_blank"
-        rel="noopener noreferrer"
+      <Button
+        type="button"
+        onClick={fetchSystemInfo}
+        className="px-4 py-2"
+        variant="default"
+        size="lg"
       >
-        <Button
-          type="button"
-          onClick={fetchSystemInfo}
-          className="px-4 py-2"
-          variant="default"
-        >
-          Send
-        </Button>
-        <h3>Your system info</h3>
-        <p className="text-red-500">{systemInfo}</p>
-      </Link>
+        Fetch system info
+      </Button>
+      <RedirectButton
+        cpu={hardwareSpecs.cpu}
+        motherBoard={hardwareSpecs.motherBoard}
+        gpu={hardwareSpecs.gpu}
+        rams={hardwareSpecs.rams}
+        disks={hardwareSpecs.disks}
+      />
+      <h3>Your system info</h3>
+      <p className="text-red-500">{systemInfo}</p>
     </main>
   );
 }
