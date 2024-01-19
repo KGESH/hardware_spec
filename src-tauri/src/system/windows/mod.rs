@@ -94,35 +94,38 @@ pub fn get_windows_info() -> Result<String, Box<dyn std::error::Error>> {
     let com_con = unsafe { COMLibrary::assume_initialized() };
     let wmi_con = WMIConnection::new(com_con.into())?;
 
-    // Processor Information
-    let processors: Vec<Win32Processor> = wmi_con.query()?;
     let mut processor_info = String::from("Processors:\n");
+    let processors: Vec<Win32Processor> = wmi_con.query()?;
     for processor in &processors {
-        processor_info.push_str(&format!("{:#?}\n", processor));
+        let processor_detail = format!("{:#?}\n", processor);
+        println!("{}", processor_detail);
+        processor_info.push_str(&processor_detail);
     }
 
-    // Physical Memory Information
-    let rams: Vec<Win32PhysicalMemory> = wmi_con.query()?;
     let mut ram_info = String::from("Physical Memory:\n");
+    let rams: Vec<Win32PhysicalMemory> = wmi_con.query()?;
     for ram in &rams {
-        ram_info.push_str(&format!("{:#?}\n", ram));
+        let ram_detail = format!("{:#?}\n", ram);
+        println!("{}", ram_detail);
+        ram_info.push_str(&ram_detail);
     }
 
-    // Video Controller Information
-    let video_controllers: Vec<Win32VideoController> = wmi_con.query()?;
     let mut video_controller_info = String::from("Video Controllers:\n");
+    let video_controllers: Vec<Win32VideoController> = wmi_con.query()?;
     for video_controller in &video_controllers {
-        video_controller_info.push_str(&format!("{:#?}\n", video_controller));
+        let video_controller_detail = format!("{:#?}\n", video_controller);
+        println!("{}", video_controller_detail);
+        video_controller_info.push_str(&video_controller_detail);
     }
 
-    // Disk Drive Information
-    let disk_drives: Vec<Win32DiskDrive> = wmi_con.query()?;
     let mut disk_drive_info = String::from("Disk Drives:\n");
+    let disk_drives: Vec<Win32DiskDrive> = wmi_con.query()?;
     for disk_drive in &disk_drives {
-        disk_drive_info.push_str(&format!("{:#?}\n", disk_drive));
+        let disk_drive_detail = format!("{:#?}\n", disk_drive);
+        println!("{}", disk_drive_detail);
+        disk_drive_info.push_str(&disk_drive_detail);
     }
 
-    // Concatenate all results into a single string
     let results_str = format!("{}\n{}\n{}\n{}",
                               processor_info, ram_info, video_controller_info, disk_drive_info);
 
