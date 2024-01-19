@@ -84,7 +84,7 @@ pub struct Win32VideoController {
 // Todo: remove example code
 pub fn get_windows_info() -> Result<String, Box<dyn std::error::Error>> {
     let com_con = unsafe { COMLibrary::assume_initialized() };
-    let wmi_con = WMIConnection::new(com_connection.into())?;
+    let wmi_con = WMIConnection::new(com_con.into())?;
 
     // let results = wmi_con.raw_query("SELECT * FROM Win32_OperatingSystem");
     // let results: Vec<HashMap<String, Variant>> = wmi_connection.raw_query("SELECT * FROM Win32_Processor").unwrap();
