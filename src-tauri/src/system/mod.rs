@@ -15,7 +15,7 @@ use disk::get_disks_info;
 // Todo: extract
 #[cfg(target_os = "windows")]
 pub fn get_windows_system_info() -> String {
-    windows::get_windows_info()
+    windows::get_windows_info().unwrap_or_else(|err| format!("Error: {}", err))
 }
 
 // Todo: extract
