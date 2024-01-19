@@ -8,10 +8,12 @@ use std::collections::HashMap;
 
 // Todo: remove example code
 pub fn get_windows_info() -> String {
-    let com_con = COMLibrary::new()?;
-    let wmi_con = WMIConnection::new(com_con.into())?;
+    let com_connection = unsafe {COMLibrary::assume_initialized()};
+    let wmi_connection = WMIConnection::new(com_connection.into()).expect("Failed to connect to WMI");
 
-    let results = wmi_con.raw_query("SELECT * FROM Win32_OperatingSystem");
+    // let results = wmi_con.raw_query("SELECT * FROM Win32_OperatingSystem");
+    let result: Vec<Win32_ComputerSystemProduct> = wmi_connection.query().unwrap();
+
 
     let results_str = format!("{:?}", results);
 
