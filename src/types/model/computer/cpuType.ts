@@ -1,4 +1,4 @@
-import { IHardware } from '@/components/types/hardwares/common.types';
+import { IHardware } from '@/types/model/computer/commonType';
 
 export type ICpu = IHardware & {
   coreCount?: number;

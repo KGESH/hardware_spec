@@ -1,1 +1,1 @@
-export const SELL_HOME_PAGE_URL = 'http://localhost:4000';
+export const ESTIMATE_HOME_PAGE_URL = 'http://localhost:3001';

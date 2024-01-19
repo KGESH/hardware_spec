@@ -1,24 +1,25 @@
 'use client';
 import { HardwarePanel } from '@/components/HardwarePanel';
 import { Button } from '@/components/ui/button';
-import { ICpu } from '@/components/types/hardwares/cpu.types';
-import { IMotherBoard } from '@/components/types/hardwares/motherboard.types';
-import { IGpu } from '@/components/types/hardwares/gpu.types';
-import { IRam } from '@/components/types/hardwares/ram.types';
-import { IDisk } from '@/components/types/hardwares/disk.types';
-import { IComputer } from '@/components/types/hardwares/computer.types';
-import Link from 'next/link';
+import { ICpu } from '@/types/model/computer/cpuType';
+import { IMotherboard } from '@/types/model/computer/motherboardType';
+import { IGpu } from '@/types/model/computer/gpuType';
+import { IRam } from '@/types/model/computer/ramType';
+import { IDisk } from '@/types/model/computer/diskType';
+import { IComputer } from '@/types/model/computer/computerType';
 import { useSystemInfo } from '@/components/hooks/useSystemInfo';
 import RedirectButton from '@/components/RedirectButton';
+import { IOperatingSystem } from '@/types/model/computer/osType';
 
 function getHardwareSpecs(): IComputer {
-  // Todo: get hardware specs from windows api
+  const os: IOperatingSystem = { name: 'Windows' };
+  // Todo: get computer specs from windows api
   const cpu: ICpu = {
     type: 'CPU',
     displayName: 'Intel Core i7-8700K',
     vendorName: 'Intel',
   };
-  const motherBoard: IMotherBoard = {
+  const motherboard: IMotherboard = {
     type: 'M/B',
     displayName: 'MSI Z370 GAMING PRO CARBON AC',
     vendorName: 'MSI',
@@ -31,8 +32,8 @@ function getHardwareSpecs(): IComputer {
   const rams: IRam[] = [
     {
       type: 'RAM',
-      displayName: '16GB DDR4',
-      vendorName: 'SAMSUMG',
+      displayName: '8GB DDR4',
+      vendorName: 'MICRON',
     },
     {
       type: 'RAM',
@@ -43,8 +44,8 @@ function getHardwareSpecs(): IComputer {
   const disks: IDisk[] = [
     {
       type: 'DISK',
-      displayName: '1TB SSD',
-      vendorName: 'SAMSUMG',
+      displayName: '512GB SSD',
+      vendorName: 'WESTERN DIGITAL',
     },
     {
       type: 'DISK',
@@ -54,8 +55,9 @@ function getHardwareSpecs(): IComputer {
   ];
 
   return {
+    os,
     cpu,
-    motherBoard,
+    motherboard,
     gpu,
     rams,
     disks,
@@ -63,14 +65,14 @@ function getHardwareSpecs(): IComputer {
 }
 
 export default function Home() {
-  const hardwareSpecs = getHardwareSpecs();
+  const specs = getHardwareSpecs();
   const { systemInfo, fetchSystemInfo } = useSystemInfo();
 
   console.log(systemInfo);
 
   return (
     <main>
-      <HardwarePanel {...hardwareSpecs} />
+      <HardwarePanel {...specs} />
 
       <Button
         type="button"
@@ -82,14 +84,17 @@ export default function Home() {
         Fetch system info
       </Button>
       <RedirectButton
-        cpu={hardwareSpecs.cpu}
-        motherBoard={hardwareSpecs.motherBoard}
-        gpu={hardwareSpecs.gpu}
-        rams={hardwareSpecs.rams}
-        disks={hardwareSpecs.disks}
+        os={specs.os}
+        cpu={specs.cpu}
+        motherboard={specs.motherboard}
+        gpu={specs.gpu}
+        rams={specs.rams}
+        disks={specs.disks}
       />
       <h3>Your system info</h3>
-      <p className="text-red-500">{systemInfo}</p>
+      {systemInfo && (
+        <p className="text-red-500">{JSON.stringify(systemInfo, null, 2)}</p>
+      )}
     </main>
   );
 }

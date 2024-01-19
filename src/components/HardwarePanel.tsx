@@ -10,19 +10,13 @@ import {
   TableBody,
   Table,
 } from '@/components/ui/table';
-import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { ICpu } from '@/components/types/hardwares/cpu.types';
-import { IHardware } from '@/components/types/hardwares/common.types';
-import { IGpu } from '@/components/types/hardwares/gpu.types';
-import { IRam } from '@/components/types/hardwares/ram.types';
-import { IDisk } from '@/components/types/hardwares/disk.types';
-import { IMotherBoard } from '@/components/types/hardwares/motherboard.types';
-import { IComputer } from '@/components/types/hardwares/computer.types';
+import { IHardware } from '@/types/model/computer/commonType';
+import { IComputer } from '@/types/model/computer/computerType';
 
 type Props = IComputer;
 
-export function HardwarePanel({ cpu, motherBoard, gpu, rams, disks }: Props) {
+export function HardwarePanel({ cpu, motherboard, gpu, rams, disks }: Props) {
   return (
     <div className="flex flex-col h-screen">
       <header className="flex h-14 items-center gap-4 border-b bg-gray-100/40 px-6 dark:bg-gray-800/40">
@@ -51,10 +45,10 @@ export function HardwarePanel({ cpu, motherBoard, gpu, rams, disks }: Props) {
               {createRow(cpu)}
 
               {/*** Motherboard ***/}
-              {createRow(motherBoard)}
+              {motherboard && createRow(motherboard)}
 
               {/*** GPU ***/}
-              {createRow(gpu)}
+              {gpu && createRow(gpu)}
 
               {/*** RAM ***/}
               {rams.map((ram, idx) => createRow(ram, idx))}

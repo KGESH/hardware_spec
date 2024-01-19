@@ -1,21 +1,22 @@
-import { IComputer } from '@/components/types/hardwares/computer.types';
+import { IComputer } from '@/types/model/computer/computerType';
 import Link from 'next/link';
-import { SELL_HOME_PAGE_URL } from '@/constants/url';
+import { ESTIMATE_HOME_PAGE_URL } from '@/constants/url';
 import { Button } from '@/components/ui/button';
 
 type Props = IComputer;
 export default function RedirectButton({
+  os,
   cpu,
-  motherBoard,
+  motherboard,
   gpu,
   rams,
   disks,
 }: Props) {
-  const url = new URL(SELL_HOME_PAGE_URL);
+  const url = new URL('/estimate', ESTIMATE_HOME_PAGE_URL);
   const searchParams = url.searchParams;
   searchParams.append('cpu', cpu.displayName);
-  searchParams.append('motherBoard', motherBoard.displayName);
-  searchParams.append('gpu', gpu.displayName);
+  motherboard && searchParams.append('motherBoard', motherboard.displayName);
+  gpu && searchParams.append('gpu', gpu.displayName);
   rams.forEach((ram) => searchParams.append('rams', ram.displayName));
   disks.forEach((disk) => searchParams.append('disks', disk.displayName));
 
