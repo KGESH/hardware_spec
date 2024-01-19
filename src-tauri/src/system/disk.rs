@@ -3,7 +3,7 @@ use sysinfo::{Disks};
 use crate::system::dto;
 
 pub fn get_disks_info() -> Vec<dto::Disk> {
-    let mut disks = Disks::new_with_refreshed_list();
+    let disks = Disks::new_with_refreshed_list();
 
     let disks_info = disks.iter().map(|disk| {
         let name = disk.name().to_str().unwrap().to_string();

@@ -94,7 +94,7 @@ pub fn get_windows_info() -> Result<String, Box<dyn std::error::Error>> {
     let wmi_con = WMIConnection::new(com_con)?;
     let results: Vec<Win32Processor> = wmi_con.query()?;
 
-    for processor in results {
+    for processor in &results {
         println!("{:#?}", processor);
     }
 
