@@ -1,3 +1,4 @@
+mod windows;
 mod os;
 mod cpu;
 mod memory;
@@ -9,6 +10,11 @@ use os::get_os_info;
 use cpu::get_cpu_info;
 use memory::get_memory_info;
 use disk::get_disks_info;
+
+// Todo: extract
+pub fn get_windows_system_info() -> String {
+    windows::get_windows_info()
+}
 
 
 // Todo: extract

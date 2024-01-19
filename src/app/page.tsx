@@ -10,6 +10,7 @@ import { IComputer } from '@/types/model/computer/computerType';
 import { useSystemInfo } from '@/components/hooks/useSystemInfo';
 import RedirectButton from '@/components/RedirectButton';
 import { IOperatingSystem } from '@/types/model/computer/osType';
+import { useWindowsSystemInfo } from '@/components/hooks/useWindowsSystemInfo';
 
 function getHardwareSpecs(): IComputer {
   const os: IOperatingSystem = { name: 'Windows' };
@@ -66,9 +67,10 @@ function getHardwareSpecs(): IComputer {
 
 export default function Home() {
   const specs = getHardwareSpecs();
-  const { systemInfo, fetchSystemInfo } = useSystemInfo();
+  // const { systemInfo, fetchSystemInfo } = useSystemInfo();
 
-  console.log(systemInfo);
+  const { windowsSystemInfo, fetchWindowsSystemInfo } = useWindowsSystemInfo();
+  // console.log(systemInfo);
 
   return (
     <main>
@@ -76,12 +78,12 @@ export default function Home() {
 
       <Button
         type="button"
-        onClick={fetchSystemInfo}
+        onClick={fetchWindowsSystemInfo}
         className="px-4 py-2"
         variant="default"
         size="lg"
       >
-        Fetch system info
+        Fetch windows system info
       </Button>
       <RedirectButton
         os={specs.os}
@@ -92,9 +94,7 @@ export default function Home() {
         disks={specs.disks}
       />
       <h3>Your system info</h3>
-      {systemInfo && (
-        <p className="text-red-500">{JSON.stringify(systemInfo, null, 2)}</p>
-      )}
+      {windowsSystemInfo && <p className="text-red-500">windowsSystemInfo</p>}
     </main>
   );
 }
