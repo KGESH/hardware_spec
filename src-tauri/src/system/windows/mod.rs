@@ -12,7 +12,7 @@ pub fn get_windows_info() -> String {
     let wmi_connection = WMIConnection::new(com_connection.into()).expect("Failed to connect to WMI");
 
     // let results = wmi_con.raw_query("SELECT * FROM Win32_OperatingSystem");
-    let results: Vec<HashMap<String, Variant>> = wmi_con.raw_query("SELECT * FROM Win32_OperatingSystem")?;
+    let results: Vec<HashMap<String, Variant>> = wmi_connection.raw_query("SELECT * FROM Win32_OperatingSystem")?;
     // let result = wmi_connection.query().unwrap();
 
 
