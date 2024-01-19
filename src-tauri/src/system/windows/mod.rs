@@ -26,19 +26,64 @@ struct Win32Processor {
 }
 
 #[derive(Deserialize, Debug)]
+#[serde(rename = "Win32_BaseBoard")]
+#[serde(rename_all = "PascalCase")]
+pub struct Win32BaseBoard {
+    pub caption: Option<String>,
+    pub config_options: Option<Vec<String>>,
+    pub creation_class_name: Option<String>,
+    pub depth: Option<f32>,
+    pub description: Option<String>,
+    pub height: Option<f32>,
+    pub hosting_board: Option<bool>,
+    pub hot_swappable: Option<bool>,
+    pub install_date: Option<WMIDateTime>,
+    pub manufacturer: Option<String>,
+    pub model: Option<String>,
+    pub name: Option<String>,
+    pub other_identifying_info: Option<String>,
+    pub part_number: Option<String>,
+    pub powered_on: Option<bool>,
+    pub product: Option<String>,
+    pub removable: Option<bool>,
+    pub replaceable: Option<bool>,
+    pub requirements_description: Option<String>,
+    pub requires_daughter_board: Option<bool>,
+    pub serial_number: Option<String>,
+    pub sku: Option<String>,
+    pub slot_layout: Option<String>,
+    pub special_requirements: Option<bool>,
+    pub status: Option<String>,
+    pub tag: Option<String>,
+    pub version: Option<String>,
+    pub weight: Option<f32>,
+    pub width: Option<f32>,
+    // ... add other fields as needed ...
+}
+
+
+#[derive(Deserialize, Debug)]
 #[serde(rename = "Win32_PhysicalMemory")]
 #[serde(rename_all = "PascalCase")]
 pub struct Win32PhysicalMemory {
-    pub capacity: Option<u64>,  // RAM size in bytes
+    // RAM size in bytes
+    pub capacity: Option<u64>,
     pub manufacturer: Option<String>,
-    pub part_number: Option<String>,  // Often used for the model name
-    pub speed: Option<u32>,  // Speed of memory in MHz
-    pub device_locator: Option<String>,  // Physical label of the socket or circuit board
-    pub memory_type: Option<u16>,  // Type of physical memory
-    pub form_factor: Option<u16>,  // Form factor for the memory chip
+    // Often used for the model name
+    pub part_number: Option<String>,
+    // Speed of memory in MHz
+    pub speed: Option<u32>,
+    // Physical label of the socket or circuit board
+    pub device_locator: Option<String>,
+    // Type of physical memory
+    pub memory_type: Option<u16>,
+    // Form factor for the memory chip
+    pub form_factor: Option<u16>,
     pub serial_number: Option<String>,
-    pub tag: Option<String>,  // Unique identifier for the memory device
-    pub data_width: Option<u16>,  // Data width of the physical memory in bits
+    // Unique identifier for the memory device
+    pub tag: Option<String>,
+    // Data width of the physical memory in bits
+    pub data_width: Option<u16>,
     pub total_width: Option<u16>,  // Total width in bits, including error correction bits
     // Add more fields as needed
 }
@@ -102,6 +147,14 @@ pub fn get_windows_info() -> Result<String, Box<dyn std::error::Error>> {
         processor_info.push_str(&processor_detail);
     }
 
+    let mut board_info = String::from("Motherboard:\n");
+    let board: Vec<Win32BaseBoard> = wmi_con.query()?;
+    for board in &boards {
+        let board_detail = format!("{:#?}\n", board);
+        println!("{}", board_detail);
+        board_info.push_str(&board_detail);
+    }
+
     let mut ram_info = String::from("Physical Memory:\n");
     let rams: Vec<Win32PhysicalMemory> = wmi_con.query()?;
     for ram in &rams {
@@ -126,8 +179,8 @@ pub fn get_windows_info() -> Result<String, Box<dyn std::error::Error>> {
         disk_drive_info.push_str(&disk_drive_detail);
     }
 
-    let results_str = format!("{}\n{}\n{}\n{}",
-                              processor_info, ram_info, video_controller_info, disk_drive_info);
+    let results_str = format!("{}\n{}\n{}\n{}\n{}",
+                              processor_info, board_info, ram_info, video_controller_info, disk_drive_info);
 
     Ok(results_str)
 }
