@@ -11,9 +11,9 @@ pub fn get_windows_info() -> String {
     let com_con = COMLibrary::new()?;
     let wmi_con = WMIConnection::new(com_con.into())?;
 
-    let results: Vec<HashMap<String, Variant>> = wmi_con.raw_query("SELECT * FROM Win32_OperatingSystem")?;
+    let results = wmi_con.raw_query("SELECT * FROM Win32_OperatingSystem");
 
-    let results_str = format!("{:#?}", results);
+    let results_str = format!("{:?}", results);
 
     // for os in results {
     //     println!("{:#?}", os);
