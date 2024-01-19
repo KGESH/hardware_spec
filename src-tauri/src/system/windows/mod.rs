@@ -29,12 +29,20 @@ struct Win32Processor {
 #[serde(rename = "Win32_PhysicalMemory")]
 #[serde(rename_all = "PascalCase")]
 pub struct Win32PhysicalMemory {
-    pub capacity: Option<u64>,
-    // RAM size in bytes
+    pub capacity: Option<u64>,  // RAM size in bytes
     pub manufacturer: Option<String>,
     pub part_number: Option<String>,  // Often used for the model name
-    // ... include other fields if needed ...
+    pub speed: Option<u32>,  // Speed of memory in MHz
+    pub device_locator: Option<String>,  // Physical label of the socket or circuit board
+    pub memory_type: Option<u16>,  // Type of physical memory
+    pub form_factor: Option<u16>,  // Form factor for the memory chip
+    pub serial_number: Option<String>,
+    pub tag: Option<String>,  // Unique identifier for the memory device
+    pub data_width: Option<u16>,  // Data width of the physical memory in bits
+    pub total_width: Option<u16>,  // Total width in bits, including error correction bits
+    // Add more fields as needed
 }
+
 
 #[derive(Deserialize, Debug)]
 #[serde(rename = "Win32_DiskDrive")]
@@ -86,24 +94,36 @@ pub fn get_windows_info() -> Result<String, Box<dyn std::error::Error>> {
     let com_con = unsafe { COMLibrary::assume_initialized() };
     let wmi_con = WMIConnection::new(com_con.into())?;
 
-    // Query for processor information
+    // Processor Information
     let processors: Vec<Win32Processor> = wmi_con.query()?;
-    let processor_info = format!("Processors:\n{:#?}", processors);
+    let mut processor_info = String::from("Processors:\n");
+    for processor in &processors {
+        processor_info.push_str(&format!("{:#?}\n", processor));
+    }
 
-    // Query for physical memory information
+    // Physical Memory Information
     let rams: Vec<Win32PhysicalMemory> = wmi_con.query()?;
-    let ram_info = format!("Physical Memory:\n{:#?}", rams);
+    let mut ram_info = String::from("Physical Memory:\n");
+    for ram in &rams {
+        ram_info.push_str(&format!("{:#?}\n", ram));
+    }
 
-    // Query for video controller information
+    // Video Controller Information
     let video_controllers: Vec<Win32VideoController> = wmi_con.query()?;
-    let video_controller_info = format!("Video Controllers:\n{:#?}", video_controllers);
+    let mut video_controller_info = String::from("Video Controllers:\n");
+    for video_controller in &video_controllers {
+        video_controller_info.push_str(&format!("{:#?}\n", video_controller));
+    }
 
-    // Query for disk drive information
+    // Disk Drive Information
     let disk_drives: Vec<Win32DiskDrive> = wmi_con.query()?;
-    let disk_drive_info = format!("Disk Drives:\n{:#?}", disk_drives);
+    let mut disk_drive_info = String::from("Disk Drives:\n");
+    for disk_drive in &disk_drives {
+        disk_drive_info.push_str(&format!("{:#?}\n", disk_drive));
+    }
 
     // Concatenate all results into a single string
-    let results_str = format!("{}\n\n{}\n\n{}\n\n{}",
+    let results_str = format!("{}\n{}\n{}\n{}",
                               processor_info, ram_info, video_controller_info, disk_drive_info);
 
     Ok(results_str)
