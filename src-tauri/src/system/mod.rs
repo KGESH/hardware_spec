@@ -1,3 +1,4 @@
+#[cfg(target_os = "windows")]
 mod windows;
 mod os;
 mod cpu;
@@ -12,10 +13,10 @@ use memory::get_memory_info;
 use disk::get_disks_info;
 
 // Todo: extract
+#[cfg(target_os = "windows")]
 pub fn get_windows_system_info() -> String {
     windows::get_windows_info()
 }
-
 
 // Todo: extract
 fn get_os_type() -> dto::OsType {
