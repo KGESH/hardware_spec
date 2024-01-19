@@ -12,10 +12,10 @@ pub fn get_windows_info() -> String {
     let wmi_connection = WMIConnection::new(com_connection.into()).expect("Failed to connect to WMI");
 
     // let results = wmi_con.raw_query("SELECT * FROM Win32_OperatingSystem");
-    let result: Vec<Win32_ComputerSystemProduct> = wmi_connection.query().unwrap();
+    let result = wmi_connection.query().unwrap();
 
 
-    let results_str = format!("{:?}", results);
+    let results_str = format!("{:?}", result);
 
     // for os in results {
     //     println!("{:#?}", os);
