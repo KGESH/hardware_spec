@@ -148,7 +148,7 @@ pub fn get_windows_info() -> Result<String, Box<dyn std::error::Error>> {
     }
 
     let mut board_info = String::from("Motherboard:\n");
-    let board: Vec<Win32BaseBoard> = wmi_con.query()?;
+    let boards: Vec<Win32BaseBoard> = wmi_con.query()?;
     for board in &boards {
         let board_detail = format!("{:#?}\n", board);
         println!("{}", board_detail);
