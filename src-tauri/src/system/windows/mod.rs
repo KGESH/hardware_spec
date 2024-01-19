@@ -86,43 +86,25 @@ pub fn get_windows_info() -> Result<String, Box<dyn std::error::Error>> {
     let com_con = unsafe { COMLibrary::assume_initialized() };
     let wmi_con = WMIConnection::new(com_con.into())?;
 
-    // let results = wmi_con.raw_query("SELECT * FROM Win32_OperatingSystem");
-    // let results: Vec<HashMap<String, Variant>> = wmi_connection.raw_query("SELECT * FROM Win32_Processor").unwrap();
-    // let result = wmi_connection.query().unwrap();
+    // Query for processor information
+    let processors: Vec<Win32Processor> = wmi_con.query()?;
+    let processor_info = format!("Processors:\n{:#?}", processors);
 
-    // let com_con = COMLibrary::new()?;
-    // let wmi_con = WMIConnection::new(com_con)?;
-    let results: Vec<Win32Processor> = wmi_con.query()?;
+    // Query for physical memory information
+    let rams: Vec<Win32PhysicalMemory> = wmi_con.query()?;
+    let ram_info = format!("Physical Memory:\n{:#?}", rams);
 
-    for processor in &results {
-        println!("{:#?}", processor);
-    }
+    // Query for video controller information
+    let video_controllers: Vec<Win32VideoController> = wmi_con.query()?;
+    let video_controller_info = format!("Video Controllers:\n{:#?}", video_controllers);
 
-    let results_str = format!("{:#?}", results);
+    // Query for disk drive information
+    let disk_drives: Vec<Win32DiskDrive> = wmi_con.query()?;
+    let disk_drive_info = format!("Disk Drives:\n{:#?}", disk_drives);
 
-    // for os in results {
-    //     println!("{:#?}", os);
-    // }
-
-    // #[derive(Deserialize, Debug)]
-    // struct Win32_OperatingSystem {
-    //     Caption: String,
-    //     Name: String,
-    //     CurrentTimeZone: i16,
-    //     Debug: bool,
-    //     EncryptionLevel: u32,
-    //     ForegroundApplicationBoost: u8,
-    //     LastBootUpTime: WMIDateTime,
-    // }
-
-    // let results: Vec<Win32_OperatingSystem> = wmi_con.query()?;
-
-    // add results string and return
-    // for os in results {
-    //     println!("{:#?}", os);
-    // }
-
-    // let os_info_str = format!("Windows System Information: {:#?}", results);
+    // Concatenate all results into a single string
+    let results_str = format!("{}\n\n{}\n\n{}\n\n{}",
+                              processor_info, ram_info, video_controller_info, disk_drive_info);
 
     Ok(results_str)
 }
