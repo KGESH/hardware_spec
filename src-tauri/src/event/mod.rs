@@ -1,12 +1,12 @@
 use crate::system;
 
 #[tauri::command]
-pub fn get_system_info() -> system::dto::SystemInfo {
+pub fn get_system_info() -> system::common::SystemInfo {
     system::get_system_info()
 }
 
-#[cfg(target_os = "windows")]
-#[tauri::command]
-pub fn get_windows_system_info() -> String {
-    system::get_windows_system_info()
-}
+// #[cfg(target_os = "windows")]
+// #[tauri::command]
+// pub fn get_windows_system_info() -> String {
+//     system::get_windows_system_info()
+// }
