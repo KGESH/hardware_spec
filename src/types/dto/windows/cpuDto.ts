@@ -1,6 +1,2 @@
-export type IWindowsCpu = {
-  frequency: number;
-  vendor_id: string;
-  brand: string;
-  core_count: number;
-};
+// Todo: Remove after windows build test
+export type IWindowsCpu = any;

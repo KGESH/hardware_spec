@@ -1,5 +1,2 @@
-export type IWindowsRam = {
-  total_memory: number;
-  free_memory: number;
-  used_memory: number;
-};
+// Todo: Remove after windows build test
+export type IWindowsRam = any;

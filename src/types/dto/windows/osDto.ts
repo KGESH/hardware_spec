@@ -1,6 +1,2 @@
-export type IWindowsOs = {
-  name: string;
-  kernel_version: string;
-  version: string;
-  hostname: string;
-};
+// Todo: Remove after windows build test
+export type IWindowsOs = any;

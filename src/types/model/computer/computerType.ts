@@ -13,3 +13,6 @@ export type IComputer = {
   rams: IRam[];
   disks: IDisk[];
 };
+
+// Todo: Remove after windows build test
+export type IWindowsComputer = any;

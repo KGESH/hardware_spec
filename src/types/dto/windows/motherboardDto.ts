@@ -1,5 +1,2 @@
-export type IWindowsMotherboard = {
-  vendor_id: string;
-  brand: string;
-  chipset?: string;
-};
+// Todo: Remove after windows build test
+export type IWindowsMotherboard = any;

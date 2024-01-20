@@ -5,10 +5,12 @@ type IOperatingSystemType = 'Windows' | 'Darwin';
 
 export type IWindowsSystemInfo = {
   os_type: 'Windows';
-} & IWindowsSystem;
+  system: IWindowsSystem;
+};
 
 export type IMacSystemInfo = {
   os_type: 'Darwin';
-} & IMacSystem;
+  system: IMacSystem;
+};
 
 export type ISystemInfo = IWindowsSystemInfo | IMacSystemInfo;
