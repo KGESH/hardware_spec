@@ -22,7 +22,7 @@ pub struct Win32Processor {
 }
 
 
-pub fn get_cpu_info(wmi_con: &WMIResult) -> Result<Vec<Win32Processor>, Box<dyn std::error::Error>> {
+pub fn get_cpu_info(wmi_con: &WMIResult<T>) -> Result<Vec<Win32Processor>, Box<dyn std::error::Error>> {
     let processors: Vec<Win32Processor> = wmi_con.query()?;
     for processor in &processors {
         let processor_detail = format!("{:#?}\n", processor);
