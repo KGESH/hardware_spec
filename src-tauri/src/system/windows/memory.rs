@@ -27,7 +27,7 @@ pub struct Win32PhysicalMemory {
     // Add more fields as needed
 }
 
-pub fn get_rams_info(wmi_con: &WMIResult<T>) -> Result<Vec<Win32PhysicalMemory>, Box<dyn std::error::Error>> {
+pub fn get_rams_info(wmi_con: &WMIResult<WMIConnection>) -> Result<Vec<Win32PhysicalMemory>, Box<dyn std::error::Error>> {
     let rams: Vec<Win32PhysicalMemory> = wmi_con.query()?;
     for ram in &rams {
         let ram_detail = format!("{:#?}\n", ram);
