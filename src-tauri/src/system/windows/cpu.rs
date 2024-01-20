@@ -1,7 +1,7 @@
 use wmi::{COMLibrary, Variant, WMIConnection, WMIDateTime, WMIResult};
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
-#[derive(Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug)]
 #[serde(rename = "Win32_Processor")]
 #[serde(rename_all = "PascalCase")]
 pub struct Win32Processor {

@@ -1,7 +1,7 @@
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 use wmi::{COMLibrary, Variant, WMIConnection, WMIDateTime, WMIResult};
 
-#[derive(Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug)]
 #[serde(rename = "Win32_BaseBoard")]
 #[serde(rename_all = "PascalCase")]
 pub struct Win32BaseBoard {
