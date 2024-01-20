@@ -1,8 +1,8 @@
 use sysinfo::{Disks};
+use crate::system::mac::dto::Disk;
 
-use crate::system::dto;
 
-pub fn get_disks_info() -> Vec<dto::Disk> {
+pub fn get_disks_info() -> Vec<Disk> {
     let disks = Disks::new_with_refreshed_list();
 
     let disks_info = disks.iter().map(|disk| {
@@ -12,14 +12,14 @@ pub fn get_disks_info() -> Vec<dto::Disk> {
         let total_space = disk.total_space();
         let removable = disk.is_removable();
 
-        dto::Disk {
+        Disk {
             name,
             kind,
             file_system,
             total_space,
             removable,
         }
-    }).collect::<Vec<dto::Disk>>();
+    }).collect::<Vec<Disk>>();
 
     disks_info
 }

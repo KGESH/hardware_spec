@@ -1,29 +1,14 @@
-use std::fmt;
 use serde::{Serialize, Deserialize};
 
 
-pub enum OsType {
-    Windows,
-    Mac,
-}
-
-impl fmt::Display for OsType {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        match self {
-            OsType::Mac => write!(f, "Darwin"),
-            OsType::Windows => write!(f, "Windows"),
-        }
-    }
-}
-
 #[derive(Serialize, Deserialize)]
-pub struct SystemInfo {
-    pub os_type: String,
+pub struct MacSystem {
     pub os: OS,
     pub cpu: Cpu,
     pub rams: Vec<Ram>,
     pub disks: Vec<Disk>,
 }
+
 
 #[derive(Serialize, Deserialize)]
 pub struct OS {
@@ -33,6 +18,7 @@ pub struct OS {
     pub hostname: String,
 }
 
+
 #[derive(Serialize, Deserialize)]
 pub struct Cpu {
     pub frequency: u64,
@@ -41,6 +27,7 @@ pub struct Cpu {
     pub core_count: usize,
 }
 
+
 #[derive(Serialize, Deserialize)]
 pub struct Ram {
     pub total_memory: u64,
@@ -48,11 +35,13 @@ pub struct Ram {
     pub used_memory: u64,
 }
 
+
 #[derive(Serialize, Deserialize)]
 pub struct Disk {
     pub name: String,
-    pub kind: String,
+
     // "SSD" or "HDD"
+    pub kind: String,
     pub file_system: String,
     pub total_space: u64,
     pub removable: bool,
