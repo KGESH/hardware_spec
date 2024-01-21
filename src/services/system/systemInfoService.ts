@@ -54,9 +54,14 @@ function transform(dto: ISystemInfo): IComputer {
         os: { name: dto.system.os.name },
         cpu: {
           type: 'CPU',
-          displayName: dto.system.cpu.brand,
+          displayName: `${dto.system.gpu.brand} / ${dto.system.cpu.core_count} Core`,
           vendorName: dto.system.cpu.vendor_id,
           coreCount: dto.system.cpu.core_count,
+        },
+        gpu: {
+          type: 'GPU',
+          displayName: `${dto.system.gpu.brand} / ${dto.system.gpu.core_count} Core`,
+          vendorName: dto.system.gpu.vendor_id,
         },
         rams: dto.system.rams.map((ram) => ({
           type: 'RAM',
