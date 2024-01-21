@@ -67,7 +67,7 @@ function transform(dto: ISystemInfo): IComputer {
           type: 'DISK',
           kind: disk.kind,
           totalSpace: disk.total_space,
-          displayName: `${disk.name} / ${disk.kind} / ${formatBytes(disk.total_space)}`,
+          displayName: `${disk.name} / ${disk.kind} / ${formatBytes(disk.total_space)}`, // Todo: Size labeling check
           vendorName: dto.system.cpu.vendor_id,
         })),
       } as IComputer;
@@ -101,7 +101,7 @@ function transform(dto: ISystemInfo): IComputer {
           type: 'DISK',
           kind: disk.InterfaceType,
           totalSpace: disk.Size,
-          displayName: `${disk.Caption} / ${formatBytes(disk.Size)}`,
+          displayName: `${disk.Caption} / ${formatBytes(disk.Size)}`, // Todo: Size labeling check
           vendorName: disk.Manufacturer,
         })),
       };
