@@ -10,13 +10,13 @@ function formatBytes(bytes: number): string {
   const terabyte = gigabyte * 1024;
 
   if (bytes >= terabyte) {
-    return `${(bytes / terabyte).toFixed(2)}TB`;
+    return `${Math.floor(bytes / terabyte)}TB`;
   } else if (bytes >= gigabyte) {
-    return `${(bytes / gigabyte).toFixed(2)}GB`;
+    return `${Math.floor(bytes / gigabyte)}GB`;
   } else if (bytes >= megabyte) {
-    return `${(bytes / megabyte).toFixed(2)}MB`;
+    return `${Math.floor(bytes / megabyte)}MB`;
   } else if (bytes >= kilobyte) {
-    return `${(bytes / kilobyte).toFixed(2)}KB`;
+    return `${Math.floor(bytes / kilobyte)}KB`;
   } else {
     return `${bytes}B`;
   }
