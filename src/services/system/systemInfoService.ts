@@ -95,7 +95,7 @@ function transform(dto: ISystemInfo): IComputer {
         rams: dto.system.rams.map((ram) => ({
           type: 'RAM',
           displayName: `${formatMemoryType(ram.MemoryType)} / ${ram.Speed} / ${formatBytes(ram.Capacity)}`,
-          vendorName: dto.system.cpu[0].Manufacturer,
+          vendorName: ram.Manufacturer,
         })),
         disks: dto.system.disks.map((disk) => ({
           type: 'DISK',
