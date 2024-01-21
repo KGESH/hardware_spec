@@ -1,3 +1,4 @@
+'use client';
 import { IComputer } from '@/types/model/computer/computerType';
 import Link from 'next/link';
 import { ESTIMATE_HOME_PAGE_URL } from '@/constants/url';

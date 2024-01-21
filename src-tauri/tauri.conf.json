@@ -16,6 +16,11 @@
       "all": false,
       "shell": {
         "open": true
+      },
+      "http": {
+        "all": true,
+        "request": true,
+        "scope": ["https://*"]
       }
     },
     "bundle": {
