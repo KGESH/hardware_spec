@@ -1,5 +1,5 @@
 use serde::{Deserialize, Serialize};
-use wmi::{COMLibrary, Variant, WMIConnection, WMIDateTime, WMIResult};
+use wmi::{WMIConnection, WMIDateTime};
 
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(rename = "Win32_BaseBoard")]

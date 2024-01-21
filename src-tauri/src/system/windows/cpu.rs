@@ -1,4 +1,4 @@
-use wmi::{COMLibrary, Variant, WMIConnection, WMIDateTime, WMIResult};
+use wmi::{WMIConnection, WMIDateTime};
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug)]
