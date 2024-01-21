@@ -94,7 +94,9 @@ export default function Home() {
         disks={specs.disks}
       />
       <h3>Your system info</h3>
-      {windowsSystemInfo && <p className="text-red-500">{windowsSystemInfo}</p>}
+      {windowsSystemInfo && (
+        <p className="text-red-500">{`${windowsSystemInfo}`}</p>
+      )}
     </main>
   );
 }
