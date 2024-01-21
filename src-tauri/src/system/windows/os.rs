@@ -42,11 +42,6 @@ pub struct Win32OperatingSystem {
     pub serial_number: Option<String>,
     pub status: Option<String>,
     pub version: Option<String>,
-    // pub data_execution_prevention_available: Option<bool>,
-    // pub data_execution_prevention_32bit_applications: Option<bool>,
-    // pub data_execution_prevention_drivers: Option<bool>,
-    // pub data_execution_prevention_support_policy: Option<u8>,
-
     pub max_number_of_processes: Option<u32>,
     pub max_process_memory_size: Option<u64>,
     pub mui_languages: Option<Vec<String>>,
@@ -70,7 +65,13 @@ pub struct Win32OperatingSystem {
     pub total_swap_space_size: Option<u64>,
     pub total_virtual_memory_size: Option<u64>,
     pub total_visible_memory_size: Option<u64>,
-    // pub windows_directory: Option<String>,
+
+    // pub data_execution_prevention_available: Option<bool>,
+    // pub data_execution_prevention_32bit_applications: Option<bool>,
+    // pub data_execution_prevention_drivers: Option<bool>,
+    // pub data_execution_prevention_support_policy: Option<u8>,
+
+    pub windows_directory: Option<String>,
     // pub quantum_length: Option<u8>,
     // pub quantum_type: Option<u8>,
     // ... add other fields as needed ...
