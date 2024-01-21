@@ -66,13 +66,13 @@ pub struct Win32OperatingSystem {
     pub suite_mask: Option<u32>,
     pub system_device: Option<String>,
     pub system_directory: Option<String>,
-    // pub system_drive: Option<String>,
-    // pub total_swap_space_size: Option<u64>,
-    // pub total_virtual_memory_size: Option<u64>,
-    // pub total_visible_memory_size: Option<u64>,
-    // pub windows_directory: Option<String>,
-    // pub quantum_length: Option<u8>,
-    // pub quantum_type: Option<u8>,
+    pub system_drive: Option<String>,
+    pub total_swap_space_size: Option<u64>,
+    pub total_virtual_memory_size: Option<u64>,
+    pub total_visible_memory_size: Option<u64>,
+    pub windows_directory: Option<String>,
+    pub quantum_length: Option<u8>,
+    pub quantum_type: Option<u8>,
     // ... add other fields as needed ...
 }
 
