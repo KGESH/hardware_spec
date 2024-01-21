@@ -6,10 +6,10 @@ import { IWindowsMotherboard } from '@/types/dto/windows/motherboardDto';
 import { IWindowsGpu } from '@/types/dto/windows/gpuDto';
 
 export type IWindowsSystem = {
-  os: IWindowsOs;
-  cpu: IWindowsCpu;
-  motherboard: IWindowsMotherboard;
-  gpu: IWindowsGpu;
+  os: IWindowsOs[];
+  cpu: IWindowsCpu[];
+  motherboard: IWindowsMotherboard[];
+  gpu: IWindowsGpu[];
   rams: IWindowsRam[];
   disks: IWindowsDisk[];
 };

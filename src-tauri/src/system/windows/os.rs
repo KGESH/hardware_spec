@@ -9,8 +9,7 @@ pub struct Win32OperatingSystem {
     pub boot_device: Option<String>,
     pub build_number: Option<String>,
     pub build_type: Option<String>,
-    // caption will print like "Microsoft Windows 10 Home"
-    pub caption: Option<String>,
+    pub caption: Option<String>, // caption will print like "Microsoft Windows 10 Home"
     pub code_set: Option<String>,
     pub country_code: Option<String>,
     pub creation_class_name: Option<String>,

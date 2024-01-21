@@ -67,18 +67,22 @@ function getHardwareSpecs(): IComputer {
 
 export default function Home() {
   const specs = getHardwareSpecs();
-  // const { systemInfo, fetchSystemInfo } = useSystemInfo();
+  const { systemInfo, fetchSystemInfo } = useSystemInfo();
 
-  const { windowsSystemInfo, fetchWindowsSystemInfo } = useWindowsSystemInfo();
+  // const { windowsSystemInfo, fetchWindowsSystemInfo } = useWindowsSystemInfo();
   // console.log(systemInfo);
 
   return (
     <main>
-      <HardwarePanel {...specs} />
+      {systemInfo ? (
+        <HardwarePanel {...systemInfo} />
+      ) : (
+        <HardwarePanel {...specs} />
+      )}
 
       <Button
         type="button"
-        onClick={fetchWindowsSystemInfo}
+        onClick={fetchSystemInfo}
         className="px-4 py-2"
         variant="default"
         size="lg"
@@ -94,8 +98,8 @@ export default function Home() {
         disks={specs.disks}
       />
       <h3>Your system info</h3>
-      {windowsSystemInfo && (
-        <p className="text-red-500">{`${windowsSystemInfo}`}</p>
+      {systemInfo && (
+        <p className="text-red-500">{`${JSON.stringify(systemInfo, null, 4)}`}</p>
       )}
     </main>
   );

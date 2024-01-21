@@ -1,10 +1,7 @@
 'use client';
 import { invokeSystemCommand } from '@/services/tauri/invoke/invoke';
 import { ISystemInfo } from '@/types/dto/commonDto';
-import {
-  IComputer,
-  IWindowsComputer,
-} from '@/types/model/computer/computerType';
+import { IComputer } from '@/types/model/computer/computerType';
 
 function formatBytes(bytes: number): string {
   const kilobyte = 1024;
@@ -22,6 +19,31 @@ function formatBytes(bytes: number): string {
     return `${(bytes / kilobyte).toFixed(2)}KB`;
   } else {
     return `${bytes}B`;
+  }
+}
+
+const MEMORY_TYPE = {
+  DDR1: 20,
+  DDR2: 22,
+  DDR3: 24,
+  DDR4: 26,
+  DDR5: 28,
+} as const;
+
+function formatMemoryType(type: number): string {
+  switch (type) {
+    case MEMORY_TYPE.DDR1:
+      return 'ddr1';
+    case MEMORY_TYPE.DDR2:
+      return 'ddr2';
+    case MEMORY_TYPE.DDR3:
+      return 'ddr3';
+    case MEMORY_TYPE.DDR4:
+      return 'ddr4';
+    case MEMORY_TYPE.DDR5:
+      return 'ddr5';
+    default:
+      return 'UNKNOWN';
   }
 }
 
@@ -50,40 +72,42 @@ function transform(dto: ISystemInfo): IComputer {
         })),
       } as IComputer;
 
-    // case 'Windows':
-    //   return {
-    //     os: { name: dto.system.os.name },
-    //     cpu: {
-    //       type: 'CPU',
-    //       displayName: dto.system.cpu.brand,
-    //       vendorName: dto.system.cpu.vendor_id,
-    //       coreCount: dto.system.cpu.core_count,
-    //     },
-    //     motherboard: {
-    //       type: 'M/B',
-    //       displayName: dto.system.cpu.brand,
-    //       vendorName: dto.system.cpu.vendor_id,
-    //       chipset: dto.system.motherboard.chipset,
-    //     },
-    //     gpu: {
-    //       type: 'GPU',
-    //       displayName: dto.system.gpu.brand,
-    //       vendorName: dto.system.gpu.vendor_id,
-    //       subVendorName: dto.system.gpu.sub_vendor_name,
-    //     },
-    //     rams: dto.system.rams.map((ram) => ({
-    //       type: 'RAM',
-    //       displayName: formatBytes(ram.total_memory),
-    //       vendorName: dto.system.cpu.vendor_id,
-    //     })),
-    //     disks: dto.system.disks.map((disk) => ({
-    //       type: 'DISK',
-    //       kind: disk.kind,
-    //       totalSpace: disk.total_space,
-    //       displayName: `${disk.name} / ${disk.kind} / ${formatBytes(disk.total_space)}`,
-    //       vendorName: dto.system.cpu.vendor_id,
-    //     })),
-    //   } as IWindowsComputer;
+    case 'Windows':
+      return {
+        os: { name: dto.system.os[0].Name },
+        cpu: {
+          type: 'CPU',
+          displayName: dto.system.cpu[0].Caption,
+          vendorName: dto.system.cpu[0].Manufacturer,
+          coreCount: dto.system.cpu[0].NumberOfCores,
+        },
+        motherboard: {
+          type: 'M/B',
+          displayName: dto.system.motherboard[0].Caption, // Caption or Name
+          vendorName: dto.system.motherboard[0].Manufacturer,
+          chipset: dto.system.motherboard[0].Product,
+        },
+        gpu: {
+          type: 'GPU',
+          displayName: dto.system.gpu[0].Caption,
+          vendorName: dto.system.gpu[0].AdapterCompatibility,
+        },
+        rams: dto.system.rams.map((ram) => ({
+          type: 'RAM',
+          displayName: `${formatMemoryType(ram.MemoryType)} / ${ram.Speed} / ${formatBytes(ram.Capacity)}`,
+          vendorName: dto.system.cpu[0].Manufacturer,
+        })),
+        disks: dto.system.disks.map((disk) => ({
+          type: 'DISK',
+          kind: disk.InterfaceType,
+          totalSpace: disk.Size,
+          displayName: `${disk.Caption} / ${formatBytes(disk.Size)}`,
+          vendorName: disk.Manufacturer,
+        })),
+      };
+
+    // case 'Linux':
+    //Todo: Implement Linux
 
     default:
       throw new Error(`[osService] transform: unknown osType: ${dto}`);
