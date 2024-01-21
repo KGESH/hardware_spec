@@ -5,6 +5,7 @@ use serde::{Serialize, Deserialize};
 pub struct MacSystem {
     pub os: OS,
     pub cpu: Cpu,
+    pub gpu: Gpu,
     pub rams: Vec<Ram>,
     pub disks: Vec<Disk>,
 }
@@ -24,6 +25,14 @@ pub struct Cpu {
     pub frequency: u64,
     pub vendor_id: String,
     pub brand: String,
+    pub core_count: usize,
+}
+
+
+#[derive(Serialize, Deserialize)]
+pub struct Gpu {
+    pub brand: String,
+    pub vendor_id: String,
     pub core_count: usize,
 }
 
