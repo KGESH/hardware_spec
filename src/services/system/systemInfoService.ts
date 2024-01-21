@@ -77,7 +77,7 @@ function transform(dto: ISystemInfo): IComputer {
         os: { name: dto.system.os[0].Name },
         cpu: {
           type: 'CPU',
-          displayName: dto.system.cpu[0].Caption,
+          displayName: dto.system.cpu[0].Name,
           vendorName: dto.system.cpu[0].Manufacturer,
           coreCount: dto.system.cpu[0].NumberOfCores,
         },
