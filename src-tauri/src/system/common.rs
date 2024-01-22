@@ -44,7 +44,7 @@ pub struct SystemInfo {
 }
 
 #[cfg(target_os = "windows")]
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct SystemInfo {
     pub os_type: String,
     pub system: windows::dto::WindowsSystem,
