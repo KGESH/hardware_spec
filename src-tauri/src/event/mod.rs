@@ -2,7 +2,10 @@ use crate::system;
 
 #[tauri::command]
 pub fn get_system_info() -> system::common::SystemInfo {
-    system::get_system_info()
+    let info =  system::get_system_info();
+    println!("info: {:?}", info);
+
+    info
 }
 
 // #[cfg(target_os = "windows")]

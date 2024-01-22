@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct MacSystem {
     pub os: OS,
     pub cpu: Cpu,
@@ -11,7 +11,7 @@ pub struct MacSystem {
 }
 
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct OS {
     pub name: String,
     pub kernel_version: String,
@@ -20,7 +20,7 @@ pub struct OS {
 }
 
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Cpu {
     pub frequency: u64,
     pub vendor_id: String,
@@ -29,7 +29,7 @@ pub struct Cpu {
 }
 
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Gpu {
     pub brand: String,
     pub vendor_id: String,
@@ -37,7 +37,7 @@ pub struct Gpu {
 }
 
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Ram {
     pub total_memory: u64,
     pub free_memory: u64,
@@ -45,7 +45,7 @@ pub struct Ram {
 }
 
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Disk {
     pub name: String,
 

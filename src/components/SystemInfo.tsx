@@ -67,10 +67,16 @@ function getHardwareSpecs(): IComputer {
 export default function SystemInfo() {
   const sampleSpecs = getHardwareSpecs();
 
-  const { systemInfo, fetchSystemInfo } = useSystemInfo();
+  const {
+    isPending,
+    data: systemInfo,
+    refetch: fetchSystemInfo,
+  } = useSystemInfo();
+
+  if (isPending) return <p>Loading...</p>;
 
   return (
-    <>
+    <div>
       {systemInfo ? (
         <HardwarePanel {...systemInfo} />
       ) : (
@@ -89,13 +95,14 @@ export default function SystemInfo() {
 
       <Button
         type="button"
-        onClick={fetchSystemInfo}
+        disabled={isPending}
+        onClick={() => fetchSystemInfo()}
         className="px-4 py-2"
         variant="default"
         size="lg"
       >
-        Fetch windows system info
+        Fetch system info
       </Button>
-    </>
+    </div>
   );
 }

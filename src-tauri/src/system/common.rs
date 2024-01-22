@@ -37,7 +37,7 @@ pub fn get_os_type() -> String {
 }
 
 #[cfg(target_os = "macos")]
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct SystemInfo {
     pub os_type: String,
     pub system: mac::dto::MacSystem,

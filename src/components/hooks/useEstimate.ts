@@ -34,8 +34,8 @@ export const useEstimate = () => {
     mutationFn: handleMutation,
     onSuccess: async (data) => {
       console.log('success', data);
-      const shell = await import('@tauri-apps/api/shell');
-      await shell.open(ESTIMATE_HOME_PAGE_URL);
+      const browser = await import('@tauri-apps/api/shell'); // Open default web browser
+      await browser.open(ESTIMATE_HOME_PAGE_URL);
     },
     onError: (error) => {
       console.log('error', error);
